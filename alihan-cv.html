@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alihan Uslu - CV & Cover Letter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .nav {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #6c757d;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-btn.active {
+            color: #667eea;
+            background: white;
+        }
+
+        .nav-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #667eea;
+        }
+
+        .content {
+            padding: 30px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #667eea;
+            font-weight: 700;
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .experience-item, .education-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .experience-title {
+            font-weight: 700;
+            font-size: 18px;
+            color: #212529;
+            margin-bottom: 5px;
+        }
+
+        .experience-company {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .experience-date {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .experience-desc {
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: #e7f3ff;
+            color: #667eea;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .cover-letter {
+            line-height: 1.8;
+            color: #495057;
+        }
+
+        .cover-letter p {
+            margin-bottom: 15px;
+        }
+
+        .cover-letter-placeholder {
+            background: #fff3cd;
+            border: 2px dashed #ffc107;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            color: #856404;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .lang-btn {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #6c757d;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .lang-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ALIHAN USLU</h1>
+            <p>Computer Engineer</p>
+        </div>
+
+        <div class="nav">
+            <button class="nav-btn active" onclick="showPage('cv')">📄 CV</button>
+            <button class="nav-btn" onclick="showPage('cover')">✉️ Cover Letter</button>
+        </div>
+
+        <div class="content">
+            <!-- CV PAGE -->
+            <div id="cv" class="page active">
+                <div class="section">
+                    <div class="section-title">Contact Information</div>
+                    <div class="contact-info">
+                        <div class="contact-item">📧 Usluhan02@gmail.com</div>
+                        <div class="contact-item">📍 Istanbul, Turkey</div>
+                        <div class="contact-item">🚗 B Licence</div>
+                        <div class="contact-item">💼 <a href="https://www.linkedin.com/in/alihan-uslu-ıstanbul" style="color: #667eea; text-decoration: none;">LinkedIn Profile</a></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Summary</div>
+                    <p class="experience-desc">A student who communicates effectively and succinctly, approaches the world with a realistic perspective, and demonstrates the ability to quickly learn and apply new knowledge and skills.</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Professional Experience</div>
+                    
+                    <div class="experience-item">
+                        <div class="experience-title">YPP Trainee</div>
+                        <div class="experience-company">SAP</div>
+                        <div class="experience-date">November 2025 – February 2026</div>
+                        <div class="experience-desc">
+                            Participated in professional SAP training on End-to-End business processes, gaining an understanding of integrated SAP workflows and foundational knowledge of SAP Generative AI, while strengthening key soft skills such as communication, teamwork, and problem-solving.
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-title">Specialist Assistant</div>
+                        <div class="experience-company">Remed Assistance</div>
+                        <div class="experience-date">July 2024 – June 2025</div>
+                        <div class="experience-desc">
+                            Developed and customized CRM solutions with PowerApps and Power Automate, integrating Azure services to improve workflows, scalability, and security. Automated processes to reduce workload and collaborated with teams to deliver tailored dashboards.
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-title">Volunteer Intern</div>
+                        <div class="experience-company">T.C. Ministry of Family and Social Services</div>
+                        <div class="experience-date">December 2023 – February 2024</div>
+                        <div class="experience-desc">
+                            Developed and maintained web applications using C#/.NET, optimized SQL queries, and collaborated on troubleshooting to improve system reliability. Assisted in updating and documenting web solutions per organizational needs.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Education</div>
+                    
+                    <div class="education-item">
+                        <div class="experience-title">Bachelor Degree in Computer Engineering</div>
+                        <div class="experience-company">Beykent University (100% Scholarship)</div>
+                        <div class="experience-date">October 2020 - June 2025 (Including Prep Year)</div>
+                        <div class="experience-desc">
+                            Relevant coursework in Algorithms, Data Structures, Database Systems, and Software Engineering
+                        </div>
+                    </div>
+
+                    <div class="education-item">
+                        <div class="experience-title">High School</div>
+                        <div class="experience-company">Final Anadolu Lisesi</div>
+                        <div class="experience-date">2015 - 2019</div>
+                        <div class="experience-desc">AGNO: 92.7</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Certifications</div>
+                    <div class="experience-desc">
+                        • SAP Certified Associate - Implementation Consultant - End-to-End Business Processes for the Intelligent Enterprise<br>
+                        • SAP Generative AI Developer<br>
+                        • IELTS Preparation Course & Certificate English Path, London<br>
+                        • Upper-Intermediate - English Path / London
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Skills & Interests</div>
+                    <div class="skills-grid">
+                        <div class="skill-tag">Programming</div>
+                        <div class="skill-tag">C# / .NET</div>
+                        <div class="skill-tag">PowerApps</div>
+                        <div class="skill-tag">Power Automate</div>
+                        <div class="skill-tag">Azure Services</div>
+                        <div class="skill-tag">SQL</div>
+                        <div class="skill-tag">SAP</div>
+                        <div class="skill-tag">CRM Solutions</div>
+                        <div class="skill-tag">Stock Market & Finance</div>
+                        <div class="skill-tag">Social Media & Marketing</div>
+                        <div class="skill-tag">Academic Tutoring</div>
+                        <div class="skill-tag">International Travel</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Languages</div>
+                    <div class="experience-desc">
+                        <strong>Turkish:</strong> Native<br>
+                        <strong>English:</strong> Professional Working Proficiency
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- COVER LETTER PAGE -->
+            <div id="cover" class="page">
+                <div class="section">
+                    <div class="section-title">Cover Letter</div>
+                    
+                    <!-- Language Toggle -->
+                    <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+                        <button class="lang-btn" onclick="switchLanguage('en')" id="btn-en">🇬🇧 English</button>
+                        <button class="lang-btn active" onclick="switchLanguage('tr')" id="btn-tr">🇹🇷 Türkçe</button>
+                    </div>
+
+                    <!-- English Version -->
+                    <div class="cover-letter" id="cover-en" style="display: none;">
+                        <p>Thank you for taking the time to read these lines.</p>
+                        
+                        <p>I started university in Mechanical Engineering as the second-ranking student in my department, then transferred to Computer Engineering during the semester. The fundamental reason for having such an academic journey is that I did not have the chance to study in the West, build a strong network, or access opportunities through connections. As someone who grew up in the East and tried to make a living here, I worked in many different fields throughout my student life to support myself.</p>
+                        
+                        <p>During my high school years, I worked in physically demanding jobs such as construction, gardening, grafting, and pruning. Later, I went abroad to finance my language education, working as a waiter, barista, and bartender while attending language schools. Additionally, I engaged in product trading and cryptocurrency markets, writing agent bots and selling them to generate income.</p>
+                        
+                        <p>I want to emphasize that I am extremely eager to learn. During my university years, just to improve myself, I would take the high-speed train to Ankara three days a week, stay in a guesthouse, and intern at a ministry from 9:00 AM to 6:00 PM. Even during this period, I had to take out loans to cover my expenses. I still continue to take courses, especially in finance, during my free time.</p>
+                        
+                        <p>The fundamental reason for reaching out this way is to truly learn a profession for the future stages of my life, master my work, and build a good life through my labor. I have no salary expectations from the person reading this message. I only want to earn enough to cover my rent and develop myself by working in the heart of a business. I believe I can make a difference in this process with my diligence and discipline.</p>
+                        
+                        <p>I have a serious interest and talent in influencer marketing and social media marketing. I am currently in the process of establishing my own company; to cover my accounting expenses, I have minimized my personal spending. This is not about frugality but purely a matter of priorities.</p>
+                        
+                        <p>For the brand I plan to establish, I am initially focusing on the textile side. My goal is to first properly establish the brand's identity and perception; in the future, I aim to expand the brand to a wider product range by moving into accessories. If you have experience, advice, or guiding ideas in this process, it would be extremely valuable to me. By "sponsor," I do not mean financial support; I only mean benefiting from your experience, having conversations, and learning your perspective.</p>
+                        
+                        <p>If you can spare the time, listening to your experiences in business life and learning something from you would be a great opportunity for me. Thank you in advance for your interest, and I offer my respects.</p>
+                        
+                        <p style="margin-top: 30px;"><strong>Alihan Uslu</strong></p>
+                    </div>
+
+                    <!-- Turkish Version -->
+                    <div class="cover-letter" id="cover-tr">
+                        <p>Öncelikle bu satırları okumaya zaman ayırdığınız için teşekkür ederim.</p>
+                        
+                        <p>Üniversiteye Makine Mühendisliği bölümüne bölüm ikincisi olarak başladım, ardından dönem içi yatay geçişle Bilgisayar Mühendisliği bölümünü tamamladım. Böyle bir akademik yolculuğa sahip olmamın temel sebebi; batıda okuma, güçlü bir çevre edinme ya da network aracılığıyla fırsatlara ulaşma şansına sahip olmamamdır. Doğuda büyümüş ve hayatını burada sürdürmeye çalışan biri olarak, öğrencilik hayatım boyunca geçimimi sağlamak için çok farklı alanlarda çalıştım.</p>
+                        
+                        <p>Lise yıllarımda inşaat, bahçe işleri, aşı ve budama gibi fiziksel işlerde çalıştım. Daha sonra yurt dışına çıkarak dil eğitimimi finanse edebilmek adına garsonluk, baristalık ve bartending yaptım; aynı zamanda dil okullarına devam ettim. Bunun yanında ürün al-sat süreçleri ve kripto piyasalarıyla ilgilenerek, bu alanlarda agent botlar yazdım ve bunları satarak kendime gelir yaratmaya çalıştım.</p>
+                        
+                        <p>Öğrenmeye çok istekli bir yapım olduğunu özellikle vurgulamak isterim. Üniversite dönemimde sırf kendimi geliştirebilmek için haftada üç gün hızlı trenle Ankara'ya gidiyor, misafirhanede kalarak 09.00–18.00 saatleri arasında bir bakanlıkta staj yapıyordum. Bu süreçte dahi masraflarımı karşılayabilmek için kredi çekmek zorunda kaldım. Hâlen boş zamanlarımda özellikle finans alanında eğitimler almaya devam ediyorum.</p>
+                        
+                        <p>Böyle bir iletişim kurmamın temel sebebi; hayatımın ilerleyen dönemleri için gerçek anlamda bir meslek öğrenmek, işimde ustalaşmak ve emeğimle güzel bir hayat kurabilmektir. Bu mesajı okuyan kimseden bir ücret beklentim yok. Yalnızca ev kiramı karşılayabilecek düzeyde kazanıp, bir işin mutfağında çalışarak kendimi geliştirmek istiyorum. Çalışkanlığım ve disiplinimle bu süreçte fark yaratabileceğime inanıyorum.</p>
+                        
+                        <p>Influencer marketing ve sosyal medya pazarlaması konusunda ciddi bir ilgim ve yeteneğim bulunuyor. Şu sıralar kendi şirketimi kurma sürecindeyim; muhasebe masraflarımı karşılayabilmek adına kişisel harcamalarımı minimuma indirdim. Bu bir geçimsizlik değil, tamamen öncelik meselesi.</p>
+                        
+                        <p>Kurmayı planladığım marka için başlangıç aşamasında tekstil tarafını tercih ediyorum. Amacım, öncelikle markanın kimliğini ve algısını doğru şekilde oturtmak; ilerleyen süreçte ise aksesuar tarafına yönelerek markayı daha geniş bir ürün gamına taşımak. Bu süreçte tecrübeniz, öneriniz ya da yol gösterici fikirleriniz olursa, benim için son derece kıymetli olur. "Sponsor" kelimesiyle kastım maddi bir destek değil; yalnızca tecrübelerinizden faydalanmak, sohbet edebilmek ve bakış açınızı öğrenmektir.</p>
+                        
+                        <p>Eğer zaman ayırabilirseniz, iş hayatına dair deneyimlerinizi dinlemek ve sizden bir şeyler öğrenmek benim için büyük bir şans olacaktır. İlginiz için şimdiden teşekkür eder, saygılarımı sunarım.</p>
+                        
+                        <p style="margin-top: 30px;"><strong>Alihan Uslu</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Last Updated: January 2026<br>
+            Scan QR code to view this digital CV
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        function switchLanguage(lang) {
+            // Hide both versions
+            document.getElementById('cover-en').style.display = 'none';
+            document.getElementById('cover-tr').style.display = 'none';
+            
+            // Remove active class from both buttons
+            document.getElementById('btn-en').classList.remove('active');
+            document.getElementById('btn-tr').classList.remove('active');
+            
+            // Show selected language
+            if (lang === 'en') {
+                document.getElementById('cover-en').style.display = 'block';
+                document.getElementById('btn-en').classList.add('active');
+            } else {
+                document.getElementById('cover-tr').style.display = 'block';
+                document.getElementById('btn-tr').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
