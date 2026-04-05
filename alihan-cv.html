@@ -12,55 +12,133 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: float 15s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 30px 90px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.6s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 30px;
+            padding: 50px 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 20%, transparent 20%);
+            background-size: 30px 30px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 30px); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
         }
 
         .header h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
+            font-size: 42px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .header p {
-            opacity: 0.9;
-            font-size: 16px;
+            opacity: 0.95;
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .nav {
             display: flex;
             background: #f8f9fa;
-            border-bottom: 2px solid #e9ecef;
+            border-bottom: 1px solid #e9ecef;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .nav-btn {
             flex: 1;
-            padding: 15px;
+            padding: 18px;
             background: none;
             border: none;
             font-size: 16px;
             font-weight: 600;
             color: #6c757d;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(102, 126, 234, 0.05);
+            color: #667eea;
         }
 
         .nav-btn.active {
@@ -75,13 +153,37 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: #667eea;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
         }
 
         .content {
-            padding: 30px;
+            padding: 40px;
             max-height: 70vh;
             overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            border-radius: 4px;
         }
 
         .page {
@@ -90,159 +192,270 @@
 
         .page.active {
             display: block;
-            animation: fadeIn 0.3s;
+            animation: fadeIn 0.4s ease-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
 
         .section {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            animation: slideInSection 0.5s ease-out;
+        }
+
+        @keyframes slideInSection {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .section-title {
-            font-size: 20px;
+            font-size: 24px;
             color: #667eea;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #667eea;
-            font-weight: 700;
-        }
-
-        .info-item {
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .info-label {
-            font-weight: 600;
-            color: #495057;
-        }
-
-        .experience-item, .education-item {
             margin-bottom: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
+            padding-bottom: 12px;
+            border-bottom: 3px solid transparent;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
         }
 
-        .experience-title {
-            font-weight: 700;
-            font-size: 18px;
-            color: #212529;
-            margin-bottom: 5px;
-        }
-
-        .experience-company {
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .experience-date {
-            color: #6c757d;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .experience-desc {
-            color: #495057;
-            line-height: 1.6;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-        }
-
-        .skill-tag {
-            background: #e7f3ff;
-            color: #667eea;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            text-align: center;
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
         }
 
         .contact-info {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-bottom: 20px;
         }
 
         .contact-item {
-            background: #f8f9fa;
-            padding: 10px 15px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 14px 18px;
+            border-radius: 12px;
             font-size: 14px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+            background: white;
+        }
+
+        .contact-item a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: #764ba2;
+        }
+
+        .experience-item, .education-item {
+            margin-bottom: 25px;
+            padding: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            transition: width 0.3s;
+        }
+
+        .experience-item:hover::before {
+            width: 100%;
+            opacity: 0.05;
+        }
+
+        .experience-item:hover, .education-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+        }
+
+        .experience-title {
+            font-weight: 700;
+            font-size: 20px;
+            color: #212529;
+            margin-bottom: 8px;
+        }
+
+        .experience-company {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .experience-date {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .experience-desc {
+            color: #495057;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #e7f3ff 0%, #d4e7ff 100%);
+            color: #667eea;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            cursor: default;
+        }
+
+        .skill-tag:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
 
         .cover-letter {
-            line-height: 1.8;
+            line-height: 1.9;
             color: #495057;
+            font-size: 16px;
         }
 
         .cover-letter p {
-            margin-bottom: 15px;
-        }
-
-        .cover-letter-placeholder {
-            background: #fff3cd;
-            border: 2px dashed #ffc107;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            color: #856404;
-        }
-
-        .footer {
-            background: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-            color: #6c757d;
-            font-size: 14px;
+            margin-bottom: 20px;
+            text-align: justify;
         }
 
         .lang-btn {
-            padding: 10px 20px;
-            background: #f8f9fa;
+            padding: 12px 24px;
+            background: white;
             border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 10px;
+            font-size: 15px;
             font-weight: 600;
             color: #6c757d;
             cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .lang-btn.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .lang-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin: 15px auto;
+            border-radius: 2px;
         }
 
         @media (max-width: 600px) {
             .header h1 {
-                font-size: 24px;
+                font-size: 32px;
             }
             
             .content {
-                padding: 20px;
+                padding: 25px;
             }
             
             .skills-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-btn {
+                font-size: 14px;
+                padding: 15px 10px;
+            }
+        }
+
+        /* Pulse animation for important items */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
             }
         }
     </style>
@@ -250,8 +463,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>ALIHAN USLU</h1>
-            <p>Computer Engineer</p>
+            <div class="header-content">
+                <h1>ALIHAN USLU</h1>
+                <p>Computer Engineer</p>
+            </div>
         </div>
 
         <div class="nav">
@@ -268,13 +483,13 @@
                         <div class="contact-item">📧 Usluhan02@gmail.com</div>
                         <div class="contact-item">📍 Istanbul, Turkey</div>
                         <div class="contact-item">🚗 B Licence</div>
-                        <div class="contact-item">💼 <a href="https://www.linkedin.com/in/alihan-uslu-ıstanbul" style="color: #667eea; text-decoration: none;">LinkedIn Profile</a></div>
+                        <div class="contact-item">💼 <a href="https://www.linkedin.com/in/alihan-uslu-ıstanbul" target="_blank">LinkedIn Profile</a></div>
                     </div>
                 </div>
 
                 <div class="section">
                     <div class="section-title">Summary</div>
-                    <p class="experience-desc">A student who communicates effectively and succinctly, approaches the world with a realistic perspective, and demonstrates the ability to quickly learn and apply new knowledge and skills.</p>
+                    <p class="experience-desc">Communicates effectively and succinctly, approaches the world with a realistic perspective, and demonstrates the ability to quickly learn and apply new knowledge and skills.</p>
                 </div>
 
                 <div class="section">
@@ -312,11 +527,12 @@
                     <div class="section-title">Education</div>
                     
                     <div class="education-item">
-                        <div class="experience-title">Bachelor Degree in Computer Engineering</div>
-                        <div class="experience-company">Beykent University (100% Scholarship)</div>
+                        <div class="experience-title">Bachelor's of Computer Engineering EN (100% Scholarship)</div>
+                        <div class="experience-company">EQF Level 6 | Honor Graduate | GPA: 3.00 / 4.00</div>
                         <div class="experience-date">October 2020 - June 2025 (Including Prep Year)</div>
                         <div class="experience-desc">
-                            Relevant coursework in Algorithms, Data Structures, Database Systems, and Software Engineering
+                            <strong>Relevant Coursework:</strong> Data Structures and Algorithms, Object-Oriented Programming, Database Systems, Operating Systems, Computer Networks, Software Engineering.<br><br>
+                            <strong>Academic Focus:</strong> Strong foundation in computer engineering principles with emphasis on software development, system design, and problem-solving. Interdisciplinary training combining theoretical knowledge with practical implementation in modern computing technologies.
                         </div>
                     </div>
 
@@ -329,12 +545,38 @@
                 </div>
 
                 <div class="section">
-                    <div class="section-title">Certifications</div>
+                    <div class="section-title">Certifications & Training</div>
                     <div class="experience-desc">
-                        • SAP Certified Associate - Implementation Consultant - End-to-End Business Processes for the Intelligent Enterprise<br>
+                        • SAP Certified Associate – Implementation Consultant (End-to-End Business Processes for the Intelligent Enterprise)<br>
                         • SAP Generative AI Developer<br>
-                        • IELTS Preparation Course & Certificate English Path, London<br>
-                        • Upper-Intermediate - English Path / London
+                        • IELTS Preparation Course & Certificate – English Path, London | B2<br>
+                        • English Language Certificate – Islington Centre for English, London | B1
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Technical Skills & Competencies</div>
+                    <div class="experience-desc">
+                        <strong>CRM & Workflow Automation:</strong> Developed and customized CRM solutions using PowerApps and Power Automate, integrating Azure services to optimize workflows, improve scalability, and enhance security. Automated processes and delivered tailored dashboards for efficient team collaboration.<br><br>
+                        
+                        <strong>Web & Software Development:</strong> Developed and maintained web applications using C#/.NET; optimized SQL queries, implemented troubleshooting solutions, and supported organizational system reliability.<br><br>
+                        
+                        <strong>SAP End-to-End Processes & AI:</strong> Completed SAP E2E business processes training; gained foundational knowledge of SAP Generative AI, while strengthening problem-solving, communication, and teamwork skills.<br><br>
+                        
+                        <strong>Collaboration & Tools:</strong> Experienced in cross-functional team projects and project management, with skills in task planning, prototyping, and workflow optimization.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Brand / Research Experience</div>
+                    
+                    <div class="experience-item">
+                        <div class="experience-title">Founder & Creative Director</div>
+                        <div class="experience-company">FΛLIHΛN</div>
+                        <div class="experience-date">2026 - Present</div>
+                        <div class="experience-desc">
+                            Building Falihan as a high-fashion brand that reflects my own creative vision and interpretation of luxury. Handle all operational and creative workflows, including textile research, supplier coordination, and garment construction. Independently developed and launched the brand's official e-commerce platform to maintain total creative control over the user experience. Actively growing the brand, currently focused on implementing marketing strategies and optimizing production processes to establish a distinctive presence in the industry.
+                        </div>
                     </div>
                 </div>
 
@@ -360,10 +602,9 @@
                     <div class="section-title">Languages</div>
                     <div class="experience-desc">
                         <strong>Turkish:</strong> Native<br>
-                        <strong>English:</strong> Professional Working Proficiency
+                        <strong>English:</strong> B2 – Professional Working Proficiency
                     </div>
                 </div>
-
             </div>
 
             <!-- COVER LETTER PAGE -->
@@ -372,7 +613,7 @@
                     <div class="section-title">Cover Letter</div>
                     
                     <!-- Language Toggle -->
-                    <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 30px;">
                         <button class="lang-btn" onclick="switchLanguage('en')" id="btn-en">🇬🇧 English</button>
                         <button class="lang-btn active" onclick="switchLanguage('tr')" id="btn-tr">🇹🇷 Türkçe</button>
                     </div>
@@ -381,40 +622,40 @@
                     <div class="cover-letter" id="cover-en" style="display: none;">
                         <p>Thank you for taking the time to read these lines.</p>
                         
-                        <p>I started my university education as the second in the Department of Mechanical Engineering; then I completed the Computer Engineering department with a lateral transfer during the semester. Throughout my academic process, I focused not only on acquiring technical knowledge, but also on developing a culture of disciplined work and taking responsibility.</p>
+                        <p>I started university in Mechanical Engineering as the second-ranking student in my department, then transferred to Computer Engineering during the semester. The foundation of having such an academic journey is that, as someone from the East, I did not have the opportunity to build a strong network or access opportunities through connections in the East. Throughout my student life, I worked in many different fields to support myself.</p>
                         
-                        <p>During my education life, I worked actively in various sectors in order to improve myself in different areas. While continuing my language education while I was abroad, I took part in professional working environments. In addition, I developed software-based solutions by dealing with trade, product buying and selling processes and financial markets.</p>
+                        <p>During my high school years, I worked in physically demanding jobs such as construction, gardening, grafting, and pruning. Later, I went abroad to finance my language education, working as a waiter, barista, and bartender while attending language schools. Additionally, I invested the student loan I received into cryptocurrency, fund, and stock markets, and tried to generate income through my ability to follow current trends in these areas, along with product trading processes.</p>
+                                                
+                        <p>The fundamental reason for reaching out this way is to truly learn a profession for the future stages of my life, master my work, and build a good life through my labor. I have no salary expectations from the person reading this message. I only want to earn enough to cover my rent and develop myself by working in the heart of a business. I believe I can make a difference in this process with my diligence and discipline, therefore I am ready to work in any suitable department of yours.</p>
                         
-                        <p>I have a structure that approaches learning with high motivation and sees development as continuity. During my university period, I had the opportunity to closely observe the work discipline and institutional work order by doing an internship in a public institution in Ankara on certain days of the week in order to gain full experience. I still continue to improve myself, especially in finance and digital fields.</p>
+                        <p><strong>Additionally, as a hobby;</strong></p>
                         
-                        <p>My main goal in establishing this communication is to get a real profession in the long term, to specialize by taking part in the kitchen of the business and to build a sustainable career with my effort. I believe that I can produce added value in any environment I am in with my disciplined working understanding and sense of responsibility.</p>
+                        <p>I have a serious interest and talent in influencer marketing and social media marketing. To make good use of my free time during this job search process, I have designed a brand-building process.</p>
                         
-                        <p>I have a special interest and competence in the fields of influencer marketing and social media marketing, and I am in the process of implementing my own initiative in this direction.</p>
+                        <p>For the brand I plan to establish, I am initially focusing on the textile side (because I believe that during such a difficult market period, I have the chance to build the right network with the right moves). My goal is to first properly establish the brand's identity and perception; in the future, I aim to expand the brand to a wider product range by moving into accessories. However, with my researcher personality, since I can adapt very quickly to different jobs, learn fast, and work hard, I am open to everything. If you have experience, advice, or guiding ideas in this process, it would be extremely valuable to me. My goal is to have conversations and learn your perspective.</p>
                         
-                        <p>Your opinions, suggestions or guiding ideas that you can share in line with your experience will be extremely valuable to me. If you can spare time, it will be a great opportunity for me to listen to your experiences about business life and learn from you.</p>
-                        
-                        <p>Thank you for your interest, I offer my respects.</p>
+                        <p>If you can spare the time, listening to your experiences in business life and learning something from you would be a great opportunity for me. Thank you in advance for your interest, and I offer my respects.</p>
                         
                         <p style="margin-top: 30px;"><strong>Alihan Uslu</strong></p>
                     </div>
 
                     <!-- Turkish Version -->
                     <div class="cover-letter" id="cover-tr">
-                        <p>Öncelikle, bu satırları okumaya zaman ayırdığınız için teşekkür ederim.</p>
+                        <p>Öncelikle bu satırları okumaya zaman ayırdığınız için teşekkür ederim.</p>
                         
-                        <p>Üniversite eğitimime Makine Mühendisliği bölümünde bölüm ikincisi olarak başladım; ardından dönem içi yatay geçişle Bilgisayar Mühendisliği bölümünden mezun oldum. Eğitim hayatım boyunca yalnızca akademik başarıya değil, sorumluluk almayı ve üretmeyi öğrenmeye de odaklandım.</p>
+                        <p>Üniversiteye Makine Mühendisliği bölümüne bölüm ikincisi olarak başladım, ardından dönem içi yatay geçişle Bilgisayar Mühendisliği bölümünü tamamladım. Böyle bir akademik yolculuğa sahip olmamın temelinde; doğudan gelen biri olarak doğuda güçlü bir çevre edinme ya da network aracılığıyla fırsatlara ulaşma şansına sahip olamamamdır. Öğrencilik hayatım boyunca geçimimi sağlamak için çok farklı alanlarda çalıştım.</p>
                         
-                        <p>Eğitim hayatım süresince, kendimi farklı alanlarda geliştirebilmek adına çeşitli sektörlerde aktif olarak çalıştım. Yurt dışında bulunduğum dönemde dil eğitimime devam ederken profesyonel çalışma ortamlarında yer aldım. Bunun yanında ticaret, ürün al-sat süreçleri ve finansal piyasalarla ilgilenerek yazılım temelli çözümler geliştirdim.</p>
+                        <p>Lise yıllarımda inşaat, bahçe işleri, aşı ve budama gibi fiziksel işlerde çalıştım. Daha sonra yurt dışına çıkarak dil eğitimimi finanse edebilmek adına garsonluk, baristalık ve barmenlik yaptım; aynı zamanda dil okullarına devam ettim. Bunun yanında ürün al-sat süreçleri ve aldığım KYK kredisini kripto, fon, borsa piyasalarına yatırarak, bu alanlarda gündem takip etme yeteneğim ile kendime gelir yaratmaya çalıştım.</p>
+                                                
+                        <p>Böyle bir iletişim kurmamın temel sebebi; hayatımın ilerleyen dönemleri için gerçek anlamda bir meslek öğrenmek, işimde ustalaşmak ve emeğimle güzel bir hayat kurabilmektir. Bu mesajı okuyan kimseden bir ücret beklentim yok. Yalnızca ev kiramı karşılayabilecek düzeyde kazanıp, bir işin mutfağında çalışarak kendimi geliştirmek istiyorum. Çalışkanlığım ve disiplinim ile bu süreçte fark yaratabileceğime inanıyorum bu yüzden herhangi bir uygun departmanınızda çalışmaya hazırım.</p>
                         
-                        <p>Öğrenmeye yüksek motivasyonla yaklaşan, gelişimi süreklilik olarak gören bir yapıya sahibim. Üniversite dönemimde, tamamen tecrübe kazanma amacıyla haftanın belirli günlerinde Ankara’da bir kamu kurumunda staj yaparak iş disiplinini ve kurumsal çalışma düzenini yakından gözlemleme fırsatı buldum. Hâlen özellikle finans ve dijital alanlarda kendimi geliştirmeye devam ediyorum.</p>
+                        <p><strong>Ayrıca Hobi olarak;</strong></p>
                         
-                        <p>Bu iletişimi kurmaktaki temel amacım; uzun vadede gerçek anlamda bir meslek edinmek, işin mutfağında yer alarak uzmanlaşmak ve emeğimle sürdürülebilir bir kariyer inşa etmektir. Disiplinli çalışma anlayışım ve sorumluluk bilincimle, bulunduğum her ortamda katma değer üretebileceğime inanıyorum.</p>
+                        <p>Influencer marketing ve sosyal medya pazarlaması konusunda ciddi bir ilgim ve yeteneğim bulunuyor. Bu iş arama sürecimden kalan boş zamanı değerlendirmek adına ise bir marka kurma süreci tasarladığımdır.</p>
                         
-                        <p>Influencer marketing ve sosyal medya pazarlaması alanlarına özel bir ilgim ve yetkinliğim bulunmakta olup, bu doğrultuda kendi girişimimi hayata geçirme sürecindeyim.</p>
+                        <p>Kurmayı planladığım marka için başlangıç aşamasında tekstil tarafını tercih ediyorum (bu kadar kötü bir pazar dönemindeyken doğru hamle ile doğru network kurma şansım olduğunu düşündüğüm için). Amacım, öncelikle markanın kimliğini ve algısını doğru şekilde oturtmak; ilerleyen süreçte ise aksesuar tarafına yönelerek markayı daha geniş bir ürün gamına taşımak ancak araştırmacı kimliğim ile farklı işlerede çok hızlı adapte olup öğrenebilip çok çalıştığım için her şeye açığım. Bu süreçte tecrübeniz, öneriniz ya da yol gösterici fikirleriniz olursa, benim için son derece kıymetli olur. Amacım sohbet edebilmek ve bakış açınızı öğrenmektir.</p>
                         
-                        <p>Tecrübeniz doğrultusunda paylaşabileceğiniz görüşleriniz, önerileriniz veya yol gösterici fikirleriniz benim için son derece kıymetli olacaktır. Zaman ayırabilirseniz, iş hayatına dair deneyimlerinizi dinlemek ve sizden öğrenmek benim için büyük bir fırsat olacaktır.</p>
-                        
-                        <p>İlginiz için teşekkür eder, saygılarımı sunarım.</p>
+                        <p>Eğer zaman ayırabilirseniz, iş hayatına dair deneyimlerinizi dinlemek ve sizden bir şeyler öğrenmek benim için büyük bir şans olacaktır. İlginiz için şimdiden teşekkür eder, saygılarımı sunarım.</p>
                         
                         <p style="margin-top: 30px;"><strong>Alihan Uslu</strong></p>
                     </div>
@@ -423,40 +664,33 @@
         </div>
 
         <div class="footer">
-            Last Updated: January 2026<br>
+            <div class="footer-divider"></div>
+            <strong>Last Updated: March 2025</strong><br>
             Scan QR code to view this digital CV
         </div>
     </div>
 
     <script>
         function showPage(pageId) {
-            // Hide all pages
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
             
-            // Remove active class from all buttons
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            // Show selected page
             document.getElementById(pageId).classList.add('active');
-            
-            // Add active class to clicked button
             event.target.classList.add('active');
         }
 
         function switchLanguage(lang) {
-            // Hide both versions
             document.getElementById('cover-en').style.display = 'none';
             document.getElementById('cover-tr').style.display = 'none';
             
-            // Remove active class from both buttons
             document.getElementById('btn-en').classList.remove('active');
             document.getElementById('btn-tr').classList.remove('active');
             
-            // Show selected language
             if (lang === 'en') {
                 document.getElementById('cover-en').style.display = 'block';
                 document.getElementById('btn-en').classList.add('active');
